@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">            
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/style.css">
+        
+        <title>Ludo Blaster</title>
+    </head>
+    
+    <body>
+        <h1 class="title">LUDO BLASTER</h1>
+        <canvas id="canvas"></canvas>
+        <div class="selector">
+            Want to enter manually?? <input type="checkbox" id="playSelector" onchange="playerChanger()"/>
+        </div>
+        
+
+        <div class="turn-container" id="turn-container__Auto">
+            <div>Player <span id="player__name">A</span> turn</div>
+            <div class="roll" onclick="rollAuto()">Roll</div>
+            <div id="turn__value">X</div>
+            <div class="chooseToken" >Take token out!</div>
+        </div>
+
+        <div class="turn-container" id="turn-container__Manual">
+            <div>Player <span id="player__name__Manual">A</span> turn</div>
+            <input type="number" placeholder="Enter throw!" min="1" max="6" id="user"/>
+            <div onclick="rollManual()" class="roll">&#10004;</div>
+            <div id="turn__value__Manual">X</div>
+            <div class="chooseToken" >Take token out!</div>
+        </div>
+
+        <div class="player-container" id="player-container__A">
+            <div class="player">Locker for A</div>
+            <div class="token token__A"><span class="left">Left :</span><span id="token__count__A">2</span> A</div>
+            <div class="score" ><span class="left">Score :</span><span id="home__A">0</span></div>
+        </div>
+
+        <div class="player-container" id="player-container__B">
+            <div class="player">Locker for B</div>
+            <div class="token token__B"><span class="left">Left :</span><span id="token__count__B">2</span> A</div>
+            <div class="score" ><span class="left">Score :</span><span id="home__B">0</span></div>
+        </div>
+
+
+
+        <div id="svg-container">
+            <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="dice 1">
+                <path id="Vector" d="M368.001 389.308L382.978 345.016L382.994 344.967L383 344.916L390.67 281.196C392.236 272.922 398.963 266.597 407.318 265.552C418.003 264.218 427.728 271.838 428.983 282.53L432.567 313.029L399.656 383.554L368.001 389.308Z" fill="#FCE9DE" fill-opacity="0.72" stroke="black"/>
+                <g id="dice2">
+                <path id="Vector_2" d="M385 248.008L425 232.008V184.008L385 200.008V248.008Z" fill="#FBF5FC"/>
+                <path id="Vector_3" d="M345 184.008V232.008L385 248.008V200.008L345 184.008Z" fill="#FBF5FC"/>
+                <path id="Vector_4" d="M385 200.008L425 184.008L385 168.008L345 184.008L385 200.008Z" fill="#DAD5DB"/>
+                <path id="Vector_5" d="M337 184.008V232.008C337 235.28 338.992 238.216 342.024 239.44L382.024 255.44C382.992 255.824 384 256.008 385 256.008C386.016 256.008 387 255.744 387.944 255.368L387.976 255.44L427.976 239.44C431.008 238.216 433 235.28 433 232.008V184.008C433 180.736 431.008 177.8 427.976 176.576L387.976 160.576C386.064 159.808 383.944 159.808 382.032 160.576L342.032 176.576C338.992 177.8 337 180.736 337 184.008V184.008ZM353 226.592V195.824L377 205.424V236.192L353 226.592ZM393 236.192V205.432L417 195.832V226.6L393 236.192ZM385 176.624L403.464 184.008L385 191.392L366.536 184.008L385 176.624Z" fill="black"/>
+                </g>
+                <g id="dice1">
+                <path id="Vector_6" d="M268 161L292 137V89L268 113V161Z" fill="#DAD5DB"/>
+                <path id="Vector_7" d="M292 89H244L220 113H268L292 89Z" fill="#DAD5DB"/>
+                <path id="Vector_8" d="M220 113H268V161H220V113Z" fill="#FBF5FC"/>
+                <path id="Vector_9" d="M299.392 85.936C298.152 82.944 295.232 81 292 81H244C241.88 81 239.84 81.84 238.344 83.344L214.352 107.336C212.896 108.784 212 110.784 212 113V161C212 165.424 215.584 169 220 169H268C270.216 169 272.216 168.104 273.664 166.648L297.656 142.656C299.16 141.16 300 139.128 300 137V89H299.928C299.928 87.968 299.8 86.928 299.392 85.936V85.936ZM247.312 97H272.688L264.688 105H239.312L247.312 97ZM260 153H228V121H260V153ZM276 141.688V116.312L284 108.312V133.688L276 141.688Z" fill="black"/>
+                </g>
+                <path id="Vector_10" d="M451.885 274.019L451.885 274.019C454.587 268.212 460.418 264.5 466.824 264.5C477.368 264.5 485.203 274.268 482.92 284.564L455.543 407.749L391.776 471.517L295.979 479.5H136.5V360.339L195.082 336.904C195.082 336.904 195.082 336.904 195.082 336.904C208.743 331.445 223.714 330.126 238.122 333.129L238.122 333.13L260.282 337.745C260.282 337.745 260.282 337.746 260.282 337.746C281.059 342.078 302.706 337.496 319.947 325.118L350.083 303.494L350.084 303.494C358.182 297.676 369.288 298.519 376.419 305.486L376.419 305.486C384.603 313.475 384.682 326.611 376.59 334.702L311.646 399.646L310.515 400.778L312.089 400.492L367.345 390.444L400.089 384.492L400.344 384.446L400.453 384.211L451.885 274.019Z" fill="#FFDBC8" stroke="black"/>
+                <path id="Vector_11" d="M104.5 487.5V344.5H135.5V360V480V487.5H104.5Z" fill="#FBF5FC" stroke="black"/>
+                <path id="Vector_12" d="M25 487V329H103V344V487H25Z" fill="#364AA3" stroke="black" stroke-width="2"/>
+                </g>
+            </svg>
+        </div>
+        
+    </body>
+    
+    <script type="text/javascript" src="main.js"></script>
+</html>
