@@ -230,7 +230,7 @@ function distanceLeft(value,player,flag){
                 else if(flag ==0 && token__A == 1){
                     token__A__cord[0].x = null;
                     token__A__cord[0].y = null;
-                    token__A__cord[0].zVal = 1;
+                    //token__A__cord[0].zVal = 1;
                     token__A = 2;
                 }
                 else if(flag == 1){
@@ -270,7 +270,7 @@ function distanceLeft(value,player,flag){
                     token__B = 2;
                     token__B__cord[0].x = null;
                     token__B__cord[0].y = null;
-                    token__B__cord[0].zVal = 1;
+                    //token__B__cord[0].zVal = 1;
                 }
                 else if(flag == 1){
                     token__B__cord[1].x = null;
