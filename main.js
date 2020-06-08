@@ -101,6 +101,31 @@ function grid() {
     ctx.fillText(String.fromCharCode(parseInt(symbol,16)),7 * box + box/2, 7 * box + box/1.4);
 }
 
+///////SOUND
+function sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+        this.sound.play();
+    }
+    this.stop = function(){
+        this.sound.pause();
+    }    
+}
+
+var mySound = new sound("CAR-DOOR.mp3");
+
+///////POPUP
+function popupVisible(){
+    document.getElementById("popup").style.visibility = "visible";
+    setTimeout(function(){
+        document.getElementById("popup").style.visibility = "hidden";
+    },800);
+}
 
 ///////DRAWING TOKEN
 function drawToken(player,xcord,ycord,zcord,index){
@@ -186,11 +211,15 @@ function distanceLeft(value,player,flag){
         else if(distanceA[flag]-value < 0)
             return 0;
         else {
+            
             inHome__A = inHome__A + 1;
             document.getElementById("home__A").innerText = inHome__A;
 
             if(inHome__A == 2){
-                alert("Player A won!!");
+                document.getElementById("winner").innerText = "Player A won!!";
+                setTimeout(function(){
+                    document.getElementById("gameOver").style.visibility = "visible";
+                },400);
             }
             else{
 
@@ -226,7 +255,10 @@ function distanceLeft(value,player,flag){
             document.getElementById("home__B").innerText = inHome__B;
 
             if(inHome__B == 2){
-                alert("Player B won!!");
+                document.getElementById("winner").innerText = "Player B won!!";
+                setTimeout(function(){
+                    document.getElementById("gameOver").style.visibility = "visible";
+                },400);
             }
             else{
 
@@ -417,12 +449,17 @@ function moveDecider(score,counter){
                     distanceA[0] = distanceA[0] - score;
                 }
                 else if( distanceLeftValue == 0){
-                    alert("This move is not possible!");
+                    document.getElementById("text").innerText = "This move is not possible!";
+                    popupVisible();
+
                     if(tokenA__InGame!=0)
                         takeOut(counter);
                 }
                 else if( distanceLeftValue == 2){
-                    alert("You have made it to HOME!");
+                    mySound.play();
+                    document.getElementById("text").innerText = "You have made it to HOME!";
+                    popupVisible();
+
                 }
             }
             score=0;
@@ -453,12 +490,17 @@ function moveDecider(score,counter){
                     distanceB[0] = distanceB[0] - score;
                 } 
                 else if( distanceLeftValue == 0){
-                    alert("This move is not possible!");
+                    document.getElementById("text").innerText = "This move is not possible!";
+                    popupVisible();
+
                     if(tokenB__InGame!=0)
                         takeOut(counter);
                 }
                 else if(distanceLeftValue == 2){
-                    alert("You have made it to HOME!");
+                    mySound.play();
+                    document.getElementById("text").innerText = "You have made it to HOME!";
+                    popupVisible();
+
                 }
             }
             score=0;
@@ -475,10 +517,15 @@ function moveDecider(score,counter){
             distanceA[0] = distanceA[0] - score;
         }
         else if(distanceLeftValue == 2){
-            alert("You have made it to HOME!");
+            mySound.play();
+            document.getElementById("text").innerText = "You have made it to HOME!";
+            popupVisible();
+
         }
         else if(distanceLeftValue == 0){
-            alert("This move is not possible!");
+            document.getElementById("text").innerText = "This move is not possible!";
+            popupVisible();
+
         }
 
         score=0;
@@ -494,10 +541,15 @@ function moveDecider(score,counter){
             distanceB[0] = distanceB[0] - score;
         }
         else if(distanceLeftValue == 2){
-            alert("You have made it to HOME!");
+            mySound.play();
+            document.getElementById("text").innerText = "You have made it to HOME!";
+            popupVisible();
+
         }
         else if(distanceLeftValue == 0){
-            alert("This move is not possible!");
+            document.getElementById("text").innerText = "This move is not possible!";
+            popupVisible();
+
         }
         
         score=0;
@@ -519,10 +571,15 @@ function moveDecider(score,counter){
                     distanceA[1] = distanceA[1] - score;
                 }
                 else if(distanceLeftValue == 2){
-                    alert("You have made it to HOME!");
+                    mySound.play();
+                    document.getElementById("text").innerText = "You have made it to HOME!";
+                    popupVisible();
+
                 }
                 else if(distanceLeftValue == 0){
-                    alert("This move is not possible!");
+                    document.getElementById("text").innerText = "This move is not possible!";
+                    popupVisible();
+
 
                     var distValue = distanceLeft(score,counter,0);
 
@@ -531,10 +588,14 @@ function moveDecider(score,counter){
                         distanceA[0] = distanceA[0] - score;
                     }
                     else if(distValue == 2){
-                        alert("The token has made it to HOME!")
+                        document.getElementById("text").innerText = "The token has made it to HOME!";
+                        popupVisible();
+
                     }
-                    else if(distValue == 0)
-                        alert("No move possible! Next player's turn...");
+                    else if(distValue == 0){
+                        document.getElementById("text").innerText = "No move possible! Next player's turn...";
+                        popupVisible();
+                    }
                 }
     
                 score=0;
@@ -550,12 +611,16 @@ function moveDecider(score,counter){
                     distanceA[0] = distanceA[0] - score;
                 }
                 else if(distanceLeftValue == 2){
+                    mySound.play();
+                    document.getElementById("text").innerText = "You have made it to HOME!";
+                    popupVisible();
 
-                    alert("You have made it to HOME!");
 
                 }
                 else if(distanceLeftValue == 0){
-                    alert("This move is not possible!");
+                    document.getElementById("text").innerText = "This move is not possible!";
+                    popupVisible();
+
 
                     
                     var distValue = distanceLeft(score,counter,1);
@@ -565,10 +630,14 @@ function moveDecider(score,counter){
                         distanceA[1] = distanceA[1] - score;
                     }
                     else if(distValue == 2){
-                        alert("The token has made it to HOME!")
+                        document.getElementById("text").innerText = "The token has made it to HOME!";
+                        popupVisible();
+
                     }
-                    else if(distValue == 0)
-                        alert("No move possible! Next player's turn...");
+                    else if(distValue == 0){
+                        document.getElementById("text").innerText = "No move possible! Next player's turn...";
+                        popupVisible();
+                    }
                 }
     
                 score=0;
@@ -595,12 +664,16 @@ function moveDecider(score,counter){
                     distanceB[1] = distanceB[1] - score;
                 }
                 else if(distanceLeftValue == 2){
+                    mySound.play();
+                    document.getElementById("text").innerText = "You have made it to HOME!";
+                    popupVisible();
 
-                    alert("You have made it to HOME!");
 
                 }
                 else if(distanceLeftValue == 0){
-                    alert("This move is not possible!");
+                    document.getElementById("text").innerText = "This move is not possible!";
+                    popupVisible();
+
 
                     var distValue = distanceLeft(score,counter,0);
 
@@ -609,10 +682,14 @@ function moveDecider(score,counter){
                         distanceA[0] = distanceA[0] - score;
                     }
                     else if(distValue == 2){
-                        alert("The token has made it to HOME!")
+                        document.getElementById("text").innerText = "The token has made it to HOME!";
+                        popupVisible();
+
                     }
-                    else if(distValue == 0)
-                        alert("No move possible! Next player's turn...");
+                    else if(distValue == 0){
+                        document.getElementById("text").innerText = "No move possible! Next player's turn...";
+                        popupVisible();
+                    }
                 }
     
                 score=0;
@@ -627,12 +704,15 @@ function moveDecider(score,counter){
                     distanceB[0] = distanceB[0] - score;
                 }
                 else if(distanceLeftValue == 2){
-                    
-                    alert("You have made it to HOME!");
+                    mySound.play();
+                    document.getElementById("text").innerText = "You have made it to HOME!";
+                    popupVisible();
 
                 }
                 else if(distanceLeftValue == 0){
-                    alert("This move is not possible!");
+                    document.getElementById("text").innerText = "This move is not possible!";
+                    popupVisible();
+
 
                     var distValue = distanceLeft(score,counter,1);
 
@@ -641,10 +721,14 @@ function moveDecider(score,counter){
                         distanceA[1] = distanceA[1] - score;
                     }
                     else if(distValue == 2){
-                        alert("The token has made it to HOME!");
+                        document.getElementById("text").innerText = "The token has made it to HOME!";
+                        popupVisible();
+
                     }
-                    else if(distValue == 0)
-                        alert("No move possible! Next player's turn...");
+                    else if(distValue == 0){
+                        document.getElementById("text").innerText = "No move possible! Next player's turn...";
+                        popupVisible();
+                    }
                 }
     
                 score=0;
@@ -682,8 +766,10 @@ function rollAuto(){
                 counter="A";
             }
         }
-        else    
-            alert("You get one more chance!");
+        else {   
+            document.getElementById("text").innerText = "You get one more chance!";
+            popupVisible();
+        }
     },1100);
 }
 
@@ -692,7 +778,7 @@ function rollManual(){
         score=document.getElementById("user").value;
 
         if(score<1 || score>6){
-            alert("Enter number between 1 to 6!");
+            document.getElementById("text").innerText = "Enter number between 1 to 6!";
         }
         else{
             document.getElementById("turn__value__Manual").innerText = "Score of "+counter+" :"+score;
@@ -711,6 +797,10 @@ function rollManual(){
                     }
 
                 }
+                else {   
+                    document.getElementById("text").innerText = "You get one more chance!";
+                    popupVisible();
+                }
                 
             },100);
         }
@@ -727,3 +817,8 @@ function playerChanger(){
         document.getElementById("turn-container__Auto").style.visibility = "visible";
     }
 }
+
+function reloader(){
+    window.location.reload();
+}
+
